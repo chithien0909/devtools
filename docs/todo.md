@@ -9,10 +9,10 @@
 - [x] Configure TypeScript (tsconfig.json)
 - [x] Setup ESLint + Prettier
 - [x] Configure Tailwind CSS with custom theme
-- [ ] Install all core dependencies
+- [x] Install all core dependencies
 - [x] Install all dev dependencies
 - [x] Setup Vitest for testing
-- [ ] Create basic project structure
+- [x] Create basic project structure
 
 ### 1.2 Electron Configuration
 
