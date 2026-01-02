@@ -1,7 +1,10 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { dirname } from 'node:path'
+import Store from 'electron-store'
+
+const store = new Store()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -33,6 +36,11 @@ function createWindow() {
     vibrancy: 'sidebar', // for macOS
     trafficLightPosition: { x: 15, y: 15 }, // macOS specific
   })
+
+  // Handle Store IPC
+  ipcMain.handle('store-get', (_event, key) => store.get(key))
+  ipcMain.handle('store-set', (_event, key, value) => store.set(key, value))
+  ipcMain.handle('store-delete', (_event, key) => store.delete(key))
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
