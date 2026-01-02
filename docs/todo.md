@@ -228,6 +228,7 @@
 - [x] Create Settings UI
 - [x] Implement preferences storage
 - [x] Add theme settings (if needed)
+- [x] Refactor components for Light/Dark mode support
 - [x] Add window state persistence
 - [x] Add tool history persistence
 - [x] Test persistence across app restarts

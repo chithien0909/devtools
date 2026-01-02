@@ -9,8 +9,8 @@ export const WindowControls: React.FC = () => {
                 <div className="w-3.5 h-3.5 rounded-full bg-[#ffbd2e] border border-[#d8a124]" />
                 <div className="w-3.5 h-3.5 rounded-full bg-[#28c840] border border-[#1aab29]" />
             </div>
-            <div className="flex-1 text-center text-xs font-medium text-white/40 tracking-wider uppercase">
-                Antigravity DevTools
+            <div className="flex-1 text-center text-xs font-medium text-foreground-muted tracking-wider uppercase">
+                DevTools
             </div>
             <div className="w-16" /> {/* Spacer to balance the left side */}
         </div>

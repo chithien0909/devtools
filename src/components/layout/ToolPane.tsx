@@ -13,22 +13,22 @@ export const ToolPane: React.FC<ToolPaneProps> = ({ title, description, children
     return (
         <div className="flex-1 flex flex-col h-full overflow-hidden glass-panel rounded-3xl m-2 shadow-2xl relative">
             {/* Header */}
-            <div className="px-6 py-4 flex items-center justify-between border-b border-white/5 backdrop-blur-md sticky top-0 z-10 bg-white/[0.02]">
+            <div className="px-6 py-4 flex items-center justify-between border-b border-border-glass backdrop-blur-md sticky top-0 z-10 bg-[var(--color-glass-50)]">
                 <div>
-                    <h2 className="text-xl font-bold text-white tracking-tight leading-none">{title}</h2>
-                    {description && <p className="text-[11px] font-medium text-white/30 truncate mt-1.5 uppercase tracking-wider">{description}</p>}
+                    <h2 className="text-xl font-bold text-foreground tracking-tight leading-none">{title}</h2>
+                    {description && <p className="text-[11px] font-medium text-foreground-muted truncate mt-1.5 uppercase tracking-wider">{description}</p>}
                 </div>
 
                 <div className="flex items-center space-x-2">
                     {actions}
-                    <div className="flex bg-black/20 rounded-xl p-1 border border-white/10">
-                        <button className="p-2 text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-all" title="Copy">
+                    <div className="flex bg-[var(--color-glass-input)] rounded-xl p-1 border border-border-glass">
+                        <button className="p-2 text-foreground-muted hover:text-foreground hover:bg-bg-glass-hover rounded-lg transition-all" title="Copy">
                             <Copy className="w-4 h-4" />
                         </button>
-                        <button className="p-2 text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-all" title="Download">
+                        <button className="p-2 text-foreground-muted hover:text-foreground hover:bg-bg-glass-hover rounded-lg transition-all" title="Download">
                             <Download className="w-4 h-4" />
                         </button>
-                        <button className="p-2 text-white/40 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-all" title="Clear">
+                        <button className="p-2 text-foreground-muted hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-all" title="Clear">
                             <Trash2 className="w-4 h-4" />
                         </button>
                     </div>

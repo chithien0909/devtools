@@ -46,7 +46,7 @@ export const Sidebar: React.FC = () => {
         <aside className="w-64 h-full glass-panel-light border-r-0 flex flex-col transition-all duration-300 z-20">
             <div className="p-4 flex items-center mb-2 mt-2">
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground-muted" />
                     <input
                         type="text"
                         placeholder="Search tools..."
@@ -58,7 +58,7 @@ export const Sidebar: React.FC = () => {
             <nav className="flex-1 overflow-y-auto px-2 space-y-6 custom-scrollbar">
                 {categories.map((category) => (
                     <div key={category.id} className="space-y-1">
-                        <h3 className="px-3 text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] mb-2 flex items-center">
+                        <h3 className="px-3 text-[10px] font-bold text-foreground-muted uppercase tracking-[0.2em] mb-2 flex items-center">
                             <category.icon className="w-3 h-3 mr-2" />
                             {category.name}
                         </h3>
@@ -70,27 +70,27 @@ export const Sidebar: React.FC = () => {
                                     className={({ isActive }) => cn(
                                         "flex items-center px-3 py-2 rounded-lg text-sm transition-all duration-200 group",
                                         isActive
-                                            ? "bg-white/10 text-white shadow-lg shadow-black/5"
-                                            : "text-white/60 hover:bg-white/5 hover:text-white"
+                                            ? "bg-bg-glass-hover text-foreground shadow-lg shadow-black/5"
+                                            : "text-foreground-secondary hover:bg-[var(--color-glass-button-hover)] hover:text-foreground"
                                     )}
                                 >
                                     {item.name}
                                 </NavLink>
                             ))}
                             {category.items.length === 0 && (
-                                <p className="px-3 py-2 text-xs text-white/20 italic">No items yet</p>
+                                <p className="px-3 py-2 text-xs text-foreground-muted italic">No items yet</p>
                             )}
                         </div>
                     </div>
                 ))}
             </nav>
 
-            <div className="p-4 border-t border-white/5">
+            <div className="p-4 border-t border-border-glass">
                 <NavLink
                     to="/settings"
                     className={({ isActive }) => cn(
-                        "glass-button w-full flex items-center justify-start border-none bg-transparent hover:bg-white/5",
-                        isActive && "bg-white/10 text-white"
+                        "glass-button w-full flex items-center justify-start border-none bg-transparent hover:bg-[var(--color-glass-button-hover)]",
+                        isActive && "bg-bg-glass-hover text-foreground"
                     )}
                 >
                     <Settings className="w-4 h-4 mr-3" />

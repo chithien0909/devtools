@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useSettingsStore } from './store/settingsStore';
 import { Sidebar } from './components/layout/Sidebar';
 import { WindowControls } from './components/layout/WindowControls';
 import { DynamicIsland } from './components/layout/DynamicIsland';
@@ -7,9 +9,39 @@ import { ToolPlaceholder } from './components/layout/ToolPlaceholder';
 import SettingsPage from './pages/Settings';
 
 function App() {
+  const { theme } = useSettingsStore();
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove('light', 'dark');
+
+    if (theme === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.classList.add(systemTheme);
+      return;
+    }
+
+    root.classList.add(theme);
+  }, [theme]);
+
+  // Listen for system theme changes if using system theme
+  useEffect(() => {
+    if (theme !== 'system') return;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => {
+      const root = window.document.documentElement;
+      root.classList.remove('light', 'dark');
+      root.classList.add(mediaQuery.matches ? 'dark' : 'light');
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [theme]);
+
   return (
     <Router>
-      <div className="flex flex-col h-screen bg-app-gradient text-white overflow-hidden font-sans selection:bg-indigo-500/30">
+      <div className="flex flex-col h-screen bg-app-gradient text-foreground overflow-hidden font-sans selection:bg-indigo-500/30">
         <WindowControls />
 
         <div className="flex-1 flex overflow-hidden">
@@ -71,8 +103,8 @@ function App() {
                   element={
                     <div className="flex-1 flex items-center justify-center">
                       <div className="text-center">
-                        <h2 className="text-4xl font-black text-white/10 uppercase tracking-widest">Under Construction</h2>
-                        <p className="text-white/40 mt-2">This tool is coming soon.</p>
+                        <h2 className="text-4xl font-black text-foreground-muted uppercase tracking-widest">Under Construction</h2>
+                        <p className="text-foreground-secondary mt-2">This tool is coming soon.</p>
                       </div>
                     </div>
                   }
@@ -83,14 +115,14 @@ function App() {
         </div>
 
         {/* Simple Footer/Status Bar */}
-        <footer className="h-8 px-4 flex items-center justify-between text-[10px] text-white/20 border-t border-white/5 bg-black/40">
+        <footer className="h-8 px-4 flex items-center justify-between text-[10px] text-foreground-muted border-t border-border-glass bg-[var(--color-glass-input)]">
           <div className="flex items-center space-x-4">
             <span>Ready</span>
             <div className="w-1 h-1 rounded-full bg-emerald-500/50" />
             <span>UTF-8</span>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="hover:text-white/40 cursor-pointer transition-colors">v0.1.0-alpha</span>
+            <span className="hover:text-foreground cursor-pointer transition-colors">v0.1.0-alpha</span>
           </div>
         </footer>
       </div>

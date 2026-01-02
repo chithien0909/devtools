@@ -44,7 +44,7 @@ export const DynamicIsland: React.FC = () => {
                                 exit={{ opacity: 0, y: -10 }}
                                 className="text-[11px] font-semibold text-white/80 tracking-tight"
                             >
-                                Antigravity Online
+                                DevTools Online
                             </motion.span>
                         ) : (
                             <motion.div

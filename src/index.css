@@ -3,12 +3,53 @@
 :root {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color-scheme: dark;
+
+  /* Default Dark Theme Variables */
+  --color-glass-panel: rgba(15, 15, 20, 0.6);
+  --color-glass-panel-light: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-glass-border-hover: rgba(255, 255, 255, 0.2);
+  --color-glass-button: rgba(255, 255, 255, 0.05);
+  --color-glass-button-hover: rgba(255, 255, 255, 0.08);
+  --color-glass-button-active: rgba(255, 255, 255, 0.03);
+  --color-glass-input: rgba(0, 0, 0, 0.2);
+  --color-glass-input-focus: rgba(0, 0, 0, 0.4);
+  --color-text-primary: rgba(255, 255, 255, 0.9);
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
+  --color-text-muted: rgba(255, 255, 255, 0.4);
+
+  --bg-app-gradient: radial-gradient(circle at 10% 20%, rgba(30, 27, 75, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(67, 56, 202, 0.1) 0%, transparent 50%),
+    #050505;
+}
+
+/* Light Theme Variables */
+:root.light {
+  color-scheme: light;
+
+  --color-glass-panel: rgba(255, 255, 255, 0.75);
+  --color-glass-panel-light: rgba(255, 255, 255, 0.5);
+  --color-glass-border: rgba(0, 0, 0, 0.08);
+  --color-glass-border-hover: rgba(0, 0, 0, 0.15);
+  --color-glass-button: rgba(255, 255, 255, 0.6);
+  --color-glass-button-hover: rgba(255, 255, 255, 0.8);
+  --color-glass-button-active: rgba(255, 255, 255, 0.9);
+  --color-glass-input: rgba(255, 255, 255, 0.6);
+  --color-glass-input-focus: rgba(255, 255, 255, 0.9);
+  --color-text-primary: rgba(0, 0, 0, 0.9);
+  --color-text-secondary: rgba(0, 0, 0, 0.6);
+  --color-text-muted: rgba(0, 0, 0, 0.4);
+
+  --bg-app-gradient: radial-gradient(circle at 10% 20%, rgba(200, 210, 255, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(220, 230, 255, 0.4) 0%, transparent 50%),
+    #f5f5f7;
 }
 
 body {
   margin: 0;
   overflow: hidden;
   background: transparent;
+  color: var(--color-text-primary);
 }
 
 #root {
@@ -34,20 +75,17 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-glass-border);
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--color-glass-border-hover);
 }
 
 /* Glassmorphism background for the whole app */
 .bg-app-gradient {
-  background:
-    radial-gradient(circle at 10% 20%, rgba(30, 27, 75, 0.4) 0%, transparent 50%),
-    radial-gradient(circle at 90% 80%, rgba(67, 56, 202, 0.1) 0%, transparent 50%),
-    #050505;
+  background: var(--bg-app-gradient);
 }
 
 @theme {
@@ -62,56 +100,65 @@ body {
   --radius-5xl: 2.5rem;
 
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  /* Map theme variables to utility classes */
+  --color-foreground: var(--color-text-primary);
+  --color-foreground-secondary: var(--color-text-secondary);
+  --color-foreground-muted: var(--color-text-muted);
+  --color-border-glass: var(--color-glass-border);
+  --color-bg-glass-panel: var(--color-glass-panel);
+  --color-bg-glass-hover: var(--color-glass-button-hover);
 }
 
 @layer components {
 
-  /* Premium Glass Cards - Using standard CSS to avoid @apply issues with arbitrary values in v4 */
+  /* Premium Glass Cards */
   .glass-panel {
-    background-color: rgba(15, 15, 20, 0.6);
+    background-color: var(--color-glass-panel);
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--color-glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    /* Lighter shadow for broad compatibility */
   }
 
   .glass-panel-light {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: var(--color-glass-panel-light);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--color-glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
   }
 
   /* Glass Buttons */
   .glass-button {
     position: relative;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--color-glass-button);
+    border: 1px solid var(--color-glass-border);
     border-radius: 0.75rem;
     /* 12px / xl */
     padding: 0.5rem 1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-text-secondary);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .glass-button:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    color: white;
+    background-color: var(--color-glass-button-hover);
+    color: var(--color-text-primary);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
   }
 
   .glass-button:active {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: var(--color-glass-button-active);
     transform: scale(0.95);
   }
 
+  /* Keep primary consistent but maybe adjust border */
   .glass-button-primary {
     position: relative;
     overflow: hidden;
-    background-color: rgba(79, 70, 229, 0.8);
-    /* indigo-500/80 */
+    background-color: rgba(79, 70, 229, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 0.75rem;
     padding: 0.625rem 1.5rem;
@@ -123,38 +170,37 @@ body {
 
   .glass-button-primary:hover {
     background-color: rgb(79, 70, 229);
-    /* indigo-500 */
     box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4);
   }
 
   .glass-button-primary:active {
     background-color: rgb(67, 56, 202);
-    /* indigo-600 */
     transform: scale(0.95);
   }
 
   /* Glass Inputs */
   .glass-input {
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--color-glass-input);
+    border: 1px solid var(--color-glass-border);
     border-radius: 0.75rem;
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
-    color: white;
+    color: var(--color-text-primary);
     outline: none;
     transition: all 0.2s ease;
   }
 
   .glass-input::placeholder {
-    color: rgba(255, 255, 255, 0.2);
+    color: var(--color-text-muted);
   }
 
   .glass-input:hover {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: var(--color-glass-input-focus);
+    /* Slightly stronger on hover */
   }
 
   .glass-input:focus {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--color-glass-input-focus);
+    border-color: var(--color-glass-border-hover);
   }
 }
