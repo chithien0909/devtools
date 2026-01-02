@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSettingsStore } from './store/settingsStore';
 import { Sidebar } from './components/layout/Sidebar';
@@ -6,10 +6,23 @@ import { WindowControls } from './components/layout/WindowControls';
 import { DynamicIsland } from './components/layout/DynamicIsland';
 import { ToolPane } from './components/layout/ToolPane';
 import { ToolPlaceholder } from './components/layout/ToolPlaceholder';
-import SettingsPage from './pages/Settings';
+
+// Lazy load pages for better initial load performance
+const SettingsPage = lazy(() => import('./pages/Settings'));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="flex-1 flex items-center justify-center">
+    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500"></div>
+  </div>
+);
 
 function App() {
   const { theme } = useSettingsStore();
+
+  // ... (keep useEffects same as before, I'm just showing the top part change)
+  // Wait, I need to match the replacement block size. I'll replace the whole file head or just the imports and App definition start.
+  // Let's replace the whole App function to safely wrap Routes in Suspense.
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -48,68 +61,72 @@ function App() {
           <Sidebar />
 
           <main className="flex-1 flex flex-col min-w-0 relative">
-            <DynamicIsland />
+            <div className="absolute top-0 left-0 w-full z-50 pointer-events-none">
+              <DynamicIsland />
+            </div>
 
-            <div className="flex-1 overflow-hidden">
-              <Routes>
-                <Route path="/" element={<Navigate to="/json-format" replace />} />
-                <Route
-                  path="/json-format"
-                  element={
-                    <ToolPane
-                      title="JSON Formatter"
-                      description="Prettify, minify and validate JSON data"
-                    >
-                      <ToolPlaceholder name="JSON Formatter" />
-                    </ToolPane>
-                  }
-                />
-                <Route
-                  path="/json-yaml"
-                  element={
-                    <ToolPane
-                      title="JSON to YAML"
-                      description="Convert between JSON and YAML formats"
-                    >
-                      <ToolPlaceholder name="JSON to YAML" />
-                    </ToolPane>
-                  }
-                />
-                <Route
-                  path="/base64"
-                  element={
-                    <ToolPane
-                      title="Base64 Converter"
-                      description="Encode and decode Base64 strings"
-                    >
-                      <ToolPlaceholder name="Base64 Converter" />
-                    </ToolPane>
-                  }
-                />
-                <Route
-                  path="/hash"
-                  element={
-                    <ToolPane
-                      title="Hash Generator"
-                      description="Generate various cryptographic hashes"
-                    >
-                      <ToolPlaceholder name="Hash Generator" />
-                    </ToolPane>
-                  }
-                />
-                <Route path="/settings" element={<SettingsPage />} />
-                <Route
-                  path="*"
-                  element={
-                    <div className="flex-1 flex items-center justify-center">
-                      <div className="text-center">
-                        <h2 className="text-4xl font-black text-foreground-muted uppercase tracking-widest">Under Construction</h2>
-                        <p className="text-foreground-secondary mt-2">This tool is coming soon.</p>
+            <div className="flex-1 overflow-hidden pt-14">
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
+                  <Route path="/" element={<Navigate to="/json-format" replace />} />
+                  <Route
+                    path="/json-format"
+                    element={
+                      <ToolPane
+                        title="JSON Formatter"
+                        description="Prettify, minify and validate JSON data"
+                      >
+                        <ToolPlaceholder name="JSON Formatter" />
+                      </ToolPane>
+                    }
+                  />
+                  <Route
+                    path="/json-yaml"
+                    element={
+                      <ToolPane
+                        title="JSON to YAML"
+                        description="Convert between JSON and YAML formats"
+                      >
+                        <ToolPlaceholder name="JSON to YAML" />
+                      </ToolPane>
+                    }
+                  />
+                  <Route
+                    path="/base64"
+                    element={
+                      <ToolPane
+                        title="Base64 Converter"
+                        description="Encode and decode Base64 strings"
+                      >
+                        <ToolPlaceholder name="Base64 Converter" />
+                      </ToolPane>
+                    }
+                  />
+                  <Route
+                    path="/hash"
+                    element={
+                      <ToolPane
+                        title="Hash Generator"
+                        description="Generate various cryptographic hashes"
+                      >
+                        <ToolPlaceholder name="Hash Generator" />
+                      </ToolPane>
+                    }
+                  />
+                  <Route path="/settings" element={<SettingsPage />} />
+                  <Route
+                    path="*"
+                    element={
+                      <div className="flex-1 flex items-center justify-center">
+                        <div className="text-center">
+                          <h2 className="text-4xl font-black text-foreground-muted uppercase tracking-widest">Under Construction</h2>
+                          <p className="text-foreground-secondary mt-2">This tool is coming soon.</p>
+                        </div>
                       </div>
-                    </div>
-                  }
-                />
-              </Routes>
+                    }
+                  />
+                </Routes>
+              </Suspense>
             </div>
           </main>
         </div>

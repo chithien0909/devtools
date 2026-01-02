@@ -233,6 +233,12 @@
 - [x] Add tool history persistence
 - [x] Test persistence across app restarts
 
+## 5. Performance Improvements
+- [x] Optimize Dynamic Island animations (GPU acceleration, remove expensive blur)
+- [x] Implement Lazy Loading for routes (SettingsPage)
+- [ ] Implement virtualization for large data outputs (future)
+- [ ] Optimize sidebar re-renders with Memoization (future)
+
 ### 4.5 Tool Search & Filter
 
 - [ ] Implement search functionality

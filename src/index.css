@@ -209,3 +209,14 @@ body {
     border-color: var(--color-glass-border-hover);
   }
 }
+
+@layer utilities {
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+}
