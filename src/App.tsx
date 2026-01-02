@@ -113,6 +113,55 @@ function App() {
                       </ToolPane>
                     }
                   />
+                  <Route
+                    path="/uuid"
+                    element={
+                      <ToolPane
+                        title="UUID Generator"
+                        description="Generate unique identifiers (UUIDs)"
+                      >
+                        <ToolPlaceholder name="UUID Generator" />
+                      </ToolPane>
+                    }
+                  />
+
+                  {/* Formatters */}
+                  <Route
+                    path="/sql-format"
+                    element={
+                      <ToolPane
+                        title="SQL Formatter"
+                        description="Prettify and format SQL queries"
+                      >
+                        <ToolPlaceholder name="SQL Formatter" />
+                      </ToolPane>
+                    }
+                  />
+
+                  {/* Web */}
+                  <Route
+                    path="/url"
+                    element={
+                      <ToolPane
+                        title="URL Encoder/Decoder"
+                        description="Encode and decode URLs"
+                      >
+                        <ToolPlaceholder name="URL Encoder/Decoder" />
+                      </ToolPane>
+                    }
+                  />
+                  <Route
+                    path="/jwt"
+                    element={
+                      <ToolPane
+                        title="JWT Decoder"
+                        description="Parse and inspect JSON Web Tokens"
+                      >
+                        <ToolPlaceholder name="JWT Decoder" />
+                      </ToolPane>
+                    }
+                  />
+
                   <Route path="/settings" element={<SettingsPage />} />
                   <Route
                     path="*"
